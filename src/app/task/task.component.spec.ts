@@ -22,4 +22,10 @@ describe('TaskComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+  it('should show content of the taks', async(() => {
+    component.task.content = 'test';
+    fixture.detectChanges();
+    const taskContent = fixture.nativeElement.querySelector('.taskContent').innerText;
+    expect(taskContent).toContain('test');
+  }));
 });
