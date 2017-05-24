@@ -1,3 +1,7 @@
 <h1>
   {{title}}
 </h1>
+<input #taskInput id='taskInput'/>
+<button id="addTaskBtn" (click)="addTask(taskInput.value)">Add Task</button>
+<app-task *ngFor="let task of tasks" class="tasks">
+</app-task>

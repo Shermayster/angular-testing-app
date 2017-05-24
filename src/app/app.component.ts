@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Task } from './task/task.model';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  title = 'MsBit todo app';
+  tasks: Task[] = [];
+
+  addTask(taskValue: string) {
+    const newTask: Task = {
+      content: taskValue,
+      status: 'active'
+    }
+    this.tasks.push(newTask); 
+  }
 }
