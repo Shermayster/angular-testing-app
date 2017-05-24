@@ -1,3 +1,5 @@
 <div class="tasks">
-  <span class="taskContent">{{task.content}}</span>
+  <md-checkbox #complete (click)="completeTask($event)" class="taskCheckbox"></md-checkbox>
+  <span #taskContent class="taskContent">{{task.content}}</span>
+  <button (click)="deleteTask()" md-icon-button class="deleteTask"><md-icon>delete</md-icon></button>
 </div>
