@@ -1,10 +1,12 @@
-import { fakeAsync, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { fakeAsync, tick, flushMicrotasks } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskComponent } from './task.component';
-import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule } from '@angular/material';
+import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule, MdCheckbox } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModel, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('TaskComponent', () => {
   let component: TaskComponent;
@@ -17,7 +19,9 @@ describe('TaskComponent', () => {
         MdButtonModule,
         MdIconModule,
         MdInputModule,
-        MdCardModule
+        MdCardModule,
+        FormsModule,
+        ReactiveFormsModule
       ],
       declarations: [
         TaskComponent
@@ -51,15 +55,19 @@ describe('TaskComponent', () => {
     expect(deleteTask).not.toBeNull();
   }));
   it('should toggle complete task', fakeAsync(() => {
+    flushMicrotasks();
     const taskCheckbox = fixture.nativeElement.querySelector('.taskCheckbox');
-    taskCheckbox.click();
+    const checkboxDebugElement = fixture.debugElement.query(By.directive(MdCheckbox));
+    const checkboxNativeElement = checkboxDebugElement.nativeElement;
+    const inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+    inputElement.click();
     tick();
     fixture.detectChanges();
     const taskContent: HTMLElement = fixture.nativeElement.querySelector('.taskContent');
     console.log('clases', taskContent.classList);
     expect(taskContent.classList.contains('completed')).toBeTruthy();
     expect(component.task.completed).toBeTruthy();
-    taskCheckbox.click();
+    inputElement.click();
     tick();
     fixture.detectChanges();
     expect(taskContent.classList.contains('completed')).toBeFalsy();
