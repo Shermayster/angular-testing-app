@@ -1,7 +1,6 @@
-<div class="tasks">
+<div class="tasks"  [ngClass]="{'deleted': task.deleted, 'completed': task.completed}">
   <md-checkbox #complete [disabled]="task.deleted" [(ngModel)]="task.completed" class="taskCheckbox"></md-checkbox>
-  <span #taskContent class="taskContent"
-    [ngClass]="{'deleted': task.deleted, 'completed': task.completed}">
+  <span #taskContent class="taskContent">
     {{task.content}}
   </span>
   <button (click)="deleteTask()"

@@ -9,7 +9,11 @@
       <input mdInput placeholder="add task" #taskInput id='taskInput' />
     </md-input-container>
     <button md-button id="addTaskBtn" (click)="addTask(taskInput.value)">Add Task</button>
-    <app-task *ngFor="let task of tasks" [task]="task">
-    </app-task>
+    <md-list>
+      <md-list-item *ngFor="let task of tasks">
+        <app-task *ngIf="!task.deleted" [task]="task">
+        </app-task>
+      </md-list-item>
+    </md-list>
   </md-card-content>
 </md-card>

@@ -11,11 +11,13 @@ export class AppComponent {
   tasks: Task[] = [];
 
   addTask(taskValue: string) {
-    const newTask: Task = {
-      content: taskValue,
-      completed: false,
-      deleted: false
+    if (taskValue) {
+      const newTask: Task = {
+        content: taskValue,
+        completed: false,
+        deleted: false
+      };
+      this.tasks.push(newTask);
     }
-    this.tasks.push(newTask); 
   }
 }
