@@ -13,7 +13,8 @@ export class AppComponent {
   addTask(taskValue: string) {
     const newTask: Task = {
       content: taskValue,
-      status: 'active'
+      completed: false,
+      deleted: false
     }
     this.tasks.push(newTask); 
   }

@@ -1,5 +1,11 @@
 <div class="tasks">
-  <md-checkbox #complete (click)="completeTask($event)" class="taskCheckbox"></md-checkbox>
-  <span #taskContent class="taskContent">{{task.content}}</span>
-  <button (click)="deleteTask()" md-icon-button class="deleteTask"><md-icon>delete</md-icon></button>
+  <md-checkbox #complete [disabled]="task.deleted" [(ngModel)]="task.completed" class="taskCheckbox"></md-checkbox>
+  <span #taskContent class="taskContent"
+    [ngClass]="{'deleted': task.deleted, 'completed': task.completed}">
+    {{task.content}}
+  </span>
+  <button (click)="deleteTask()"
+    md-icon-button class="deleteTask">
+    <md-icon>delete</md-icon>
+  </button>
 </div>

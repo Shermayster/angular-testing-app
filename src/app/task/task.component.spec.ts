@@ -1,9 +1,10 @@
-import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { fakeAsync, tick } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TaskComponent} from './task.component';
-import { MdCheckboxModule, MdButtonModule, MdIconModule } from '@angular/material';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TaskComponent } from './task.component';
+import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TaskComponent', () => {
   let component: TaskComponent;
@@ -14,12 +15,14 @@ describe('TaskComponent', () => {
       imports: [
         MdCheckboxModule,
         MdButtonModule,
-        MdIconModule
+        MdIconModule,
+        MdInputModule,
+        MdCardModule
       ],
       declarations: [
         TaskComponent
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
   }));
@@ -43,31 +46,34 @@ describe('TaskComponent', () => {
     const taskCheckbox = fixture.nativeElement.querySelector('.taskCheckbox');
     expect(taskCheckbox).not.toBeNull();
   }));
-    it('should render delete button', async(() => {
+  it('should render delete button', async(() => {
     const deleteTask = fixture.nativeElement.querySelector('.deleteTask');
     expect(deleteTask).not.toBeNull();
   }));
-  it('should toggle complete task', async(() => {
+  it('should toggle complete task', fakeAsync(() => {
     const taskCheckbox = fixture.nativeElement.querySelector('.taskCheckbox');
     taskCheckbox.click();
-    fixture.whenStable().then(() => {
-      const taskContent: HTMLElement = fixture.nativeElement.querySelector('.taskContent')
-      expect(taskContent.classList.contains('completed')).toBeTruthy();
-      expect(component.task.status).toBe('completed');
-      taskCheckbox.click();
-      fixture.whenStable().then(() => {
-        expect(taskContent.classList.contains('completed')).toBeFalsy();
-        expect(component.task.status).toBe('');
-      });
-    });
+    tick();
+    fixture.detectChanges();
+    const taskContent: HTMLElement = fixture.nativeElement.querySelector('.taskContent');
+    console.log('clases', taskContent.classList);
+    expect(taskContent.classList.contains('completed')).toBeTruthy();
+    expect(component.task.completed).toBeTruthy();
+    taskCheckbox.click();
+    tick();
+    fixture.detectChanges();
+    expect(taskContent.classList.contains('completed')).toBeFalsy();
+    expect(component.task.completed).toBeFalsy();
+
   }));
   it('click on delete button should delete task', () => {
     const deleteTask = fixture.nativeElement.querySelector('.deleteTask');
     deleteTask.click();
     fixture.whenStable().then(() => {
-      const taskContent: HTMLElement = fixture.nativeElement.querySelector('.taskContent')
+      const taskContent: HTMLElement = fixture.nativeElement.querySelector('.taskContent');
+      fixture.detectChanges();
       expect(taskContent.classList.contains('deleted')).toBeTruthy();
-      expect(component.task.status).toBe('deleted')
-    }) 
-  })
+      expect(component.task.deleted).toBeTruthy();
+    });
+  });
 });

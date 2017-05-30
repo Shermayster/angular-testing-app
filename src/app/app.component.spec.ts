@@ -2,8 +2,10 @@ import { TaskComponent } from './task/task.component';
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
-import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule } from '@angular/material';
+import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
   let fixture;
@@ -11,16 +13,19 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MdCheckboxModule,
+        BrowserModule,
         BrowserAnimationsModule,
+        MdCheckboxModule,
         MdButtonModule,
+        MdIconModule,
         MdInputModule,
-        MdIconModule
+        MdCardModule
       ],
       declarations: [
         AppComponent,
         TaskComponent
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 

@@ -1,10 +1,10 @@
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import {MdButtonModule, MdCheckboxModule, MdIconModule, MdInputModule} from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdIconModule, MdInputModule, MdCardModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { TaskComponent } from './task/task.component';
 
@@ -21,6 +21,7 @@ import { TaskComponent } from './task/task.component';
     MdButtonModule,
     MdIconModule,
     MdInputModule,
+    MdCardModule,
     HttpModule
   ],
   providers: [],

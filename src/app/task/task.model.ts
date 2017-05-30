@@ -1,4 +1,5 @@
 export interface Task {
     content: string;
-    status: string;
+    completed: boolean;
+    deleted: boolean;
 }

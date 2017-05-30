@@ -10,21 +10,13 @@ import { Task } from './task.model';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-  @Input() task: Task = {content:'', status: ''};
-  @ViewChild('taskContent') taskContent: ElementRef; 
+  @Input() task: Task = {content: '', completed: false, deleted: false };
+  @ViewChild('taskContent') taskContent: ElementRef;
   constructor() { }
 
   ngOnInit() {
   }
-  
-  completeTask(complete: boolean) {
-    console.log('complete', complete);
-    this.taskContent.nativeElement.classList.add('completed');
-    this.task.status = "completed";
-  }
-
   deleteTask() {
-    this.taskContent.nativeElement.classList.add('deleted');
-    this.task.status = "deleted";
+    this.task.deleted = true;
   }
 }
