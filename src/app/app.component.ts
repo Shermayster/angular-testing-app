@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Task } from './task/task.model';
 
 @Component({
@@ -9,6 +9,7 @@ import { Task } from './task/task.model';
 export class AppComponent {
   title = 'MsBit todo app';
   tasks: Task[] = [];
+  taskInput: String = '';
 
   addTask(taskValue: string) {
     if (taskValue) {
@@ -18,6 +19,7 @@ export class AppComponent {
         deleted: false
       };
       this.tasks.push(newTask);
+      this.taskInput = '';
     }
   }
 }

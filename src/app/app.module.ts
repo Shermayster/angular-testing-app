@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { MdButtonModule, MdCheckboxModule, MdIconModule, MdInputModule, MdCardModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdIconModule, MdInputModule, MdCardModule, MdListModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { TaskComponent } from './task/task.component';
 
@@ -22,6 +22,7 @@ import { TaskComponent } from './task/task.component';
     MdIconModule,
     MdInputModule,
     MdCardModule,
+    MdListModule,
     HttpModule
   ],
   providers: [],

@@ -6,6 +6,7 @@ import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardMo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModel, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -19,7 +20,9 @@ describe('AppComponent', () => {
         MdButtonModule,
         MdIconModule,
         MdInputModule,
-        MdCardModule
+        MdCardModule,
+        FormsModule,
+        ReactiveFormsModule
       ],
       declarations: [
         AppComponent,
@@ -108,11 +111,25 @@ describe('AppComponent', () => {
       deleteBtn.click();
       fixture.detectChanges();
       fixture.whenStable().then(() => {
-        expect(tasks.length).toBe(0);
+        expect(tasks[0].offsetHeight).toBe(0);
+        expect(tasks[0].offsetWidth).toBe(0);
       });
     });
   }));
   it('should clear input after task was added', async(() => {
-
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    let tasks: HTMLElement[] = compiled.querySelectorAll('.tasks');
+    let taskInput: HTMLInputElement = compiled.querySelector('#taskInput');
+    expect(tasks.length).toBe(0);
+    const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
+    taskInput.value = 'test';
+    fixture.detectChanges();
+    addTaskBtn.click();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      taskInput = compiled.querySelector('#taskInput');
+      expect(taskInput.value).toBe('');
+    });
   }));
 });

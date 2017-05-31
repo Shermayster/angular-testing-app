@@ -63,14 +63,14 @@ describe('TaskComponent', () => {
     inputElement.click();
     tick();
     fixture.detectChanges();
-    const taskContent: HTMLElement = fixture.nativeElement.querySelector('.taskContent');
-    console.log('clases', taskContent.classList);
-    expect(taskContent.classList.contains('completed')).toBeTruthy();
+    const task: HTMLElement = fixture.nativeElement.querySelector('.tasks');
+    console.log('clases', task.classList);
+    expect(task.classList.contains('completed')).toBeTruthy();
     expect(component.task.completed).toBeTruthy();
     inputElement.click();
     tick();
     fixture.detectChanges();
-    expect(taskContent.classList.contains('completed')).toBeFalsy();
+    expect(task.classList.contains('completed')).toBeFalsy();
     expect(component.task.completed).toBeFalsy();
 
   }));
