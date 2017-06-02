@@ -2,9 +2,9 @@ import { TaskComponent } from './task/task.component';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
-import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule } from '@angular/material';
+import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule, MdListModule, MdListItem } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, QueryList, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModel, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -22,6 +22,7 @@ describe('AppComponent', () => {
         MdInputModule,
         MdCardModule,
         FormsModule,
+        MdListModule,
         ReactiveFormsModule
       ],
       declarations: [
@@ -70,13 +71,13 @@ describe('AppComponent', () => {
     const taskInput: HTMLInputElement = compiled.querySelector('#taskInput');
     expect(tasks.length).toBe(0);
     const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
-    taskInput.value = 'test';
+    app.taskInput = 'test';
     fixture.detectChanges();
     addTaskBtn.click();
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       expect(app.tasks.length).toBe(1);
-      tasks = compiled.querySelectorAll('.tasks');
+      tasks = compiled.querySelectorAll('.taskContent');
       expect(tasks.length).toBe(1);
       expect(tasks[0].innerText).toContain('test');
     });
@@ -99,7 +100,7 @@ describe('AppComponent', () => {
     const taskInput: HTMLInputElement = compiled.querySelector('#taskInput');
     expect(tasks.length).toBe(0);
     const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
-    taskInput.value = 'test';
+    app.taskInput = 'test1';
     fixture.detectChanges();
     addTaskBtn.click();
     fixture.detectChanges();

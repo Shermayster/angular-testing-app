@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskComponent } from './task.component';
-import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule, MdCheckbox } from '@angular/material';
+import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule, MdCheckbox, MdListModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModel, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -21,6 +21,7 @@ describe('TaskComponent', () => {
         MdInputModule,
         MdCardModule,
         FormsModule,
+        MdListModule,
         ReactiveFormsModule
       ],
       declarations: [
@@ -64,7 +65,6 @@ describe('TaskComponent', () => {
     tick();
     fixture.detectChanges();
     const task: HTMLElement = fixture.nativeElement.querySelector('.tasks');
-    console.log('clases', task.classList);
     expect(task.classList.contains('completed')).toBeTruthy();
     expect(component.task.completed).toBeTruthy();
     inputElement.click();
