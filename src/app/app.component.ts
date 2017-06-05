@@ -12,6 +12,7 @@ export class AppComponent {
   taskInput: String = '';
 
   addTask(taskValue: string) {
+    console.log('click');
     if (taskValue) {
       const newTask: Task = {
         content: taskValue,

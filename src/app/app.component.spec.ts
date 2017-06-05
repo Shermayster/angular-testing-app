@@ -124,13 +124,33 @@ describe('AppComponent', () => {
     let taskInput: HTMLInputElement = compiled.querySelector('#taskInput');
     expect(tasks.length).toBe(0);
     const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
-    taskInput.value = 'test';
+    app.taskInput = 'test';
     fixture.detectChanges();
     addTaskBtn.click();
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       taskInput = compiled.querySelector('#taskInput');
       expect(taskInput.value).toBe('');
+    });
+  }));
+  it('should add task when user push enter button', async(() => {
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    const tasks: HTMLElement[] = compiled.querySelectorAll('.tasks');
+    const taskInput: HTMLInputElement = compiled.querySelector('#taskInput');
+    expect(tasks.length).toBe(0);
+    app.taskInput = 'test';
+    fixture.detectChanges();
+    const spy = spyOn(app, 'addTask');
+    const eventKey = new KeyboardEvent('keypress', { 'key': 'Enter' });
+    taskInput.focus();
+    console.log('keyup');
+    document.dispatchEvent(eventKey);
+    debugger;
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+    fixture.whenStable().then(() => {
+      expect(spy).toHaveBeenCalledWith('test');
     });
   }));
 });
