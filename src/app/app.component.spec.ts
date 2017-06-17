@@ -1,12 +1,11 @@
+import { BrowserModule } from '@angular/platform-browser/';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
+import { NgModel, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, DefaultValueAccessor } from '@angular/forms/';
 import { TaskComponent } from './task/task.component';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-
 import { AppComponent } from './app.component';
 import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule, MdListModule, MdListItem } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, QueryList, Component } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModel, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -133,7 +132,7 @@ describe('AppComponent', () => {
       expect(taskInput.value).toBe('');
     });
   }));
-  it('should add task when user push enter button', async(() => {
+  xit('should add task when user push enter button', async(() => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     const tasks: HTMLElement[] = compiled.querySelectorAll('.tasks');
@@ -144,8 +143,7 @@ describe('AppComponent', () => {
     const spy = spyOn(app, 'addTask');
     const eventKey = new KeyboardEvent('keypress', { 'key': 'Enter' });
     taskInput.focus();
-    console.log('keyup');
-    document.dispatchEvent(eventKey);
+    dispatchEvent(eventKey);
     debugger;
     fixture.detectChanges();
     expect(spy).toHaveBeenCalled();
@@ -153,4 +151,14 @@ describe('AppComponent', () => {
       expect(spy).toHaveBeenCalledWith('test');
     });
   }));
+  xit('should contain deleted task page', () => {
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    const deletedPageBtn = compiled.querySelector('#deletedTasksBtn');
+    expect(deletedPageBtn).not.toBeNull();
+  });
+  xit('should recieve tasks from server', () => {
+
+  });
+
 });

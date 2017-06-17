@@ -1,0 +1,21 @@
+<md-card>
+  <md-card-header>
+    <h1>
+      {{title}}
+    </h1>
+  </md-card-header>
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="add task"
+      (keyup.enter)=addTask(taskInput)
+      [(ngModel)]="taskInput" id='taskInput' />
+    </md-input-container>
+    <button md-button id="addTaskBtn" (click)="addTask(taskInput)">Add Task</button>
+    <md-list>
+      <md-list-item *ngFor="let task of tasks">
+        <app-task *ngIf="!task.deleted" [task]="task">
+        </app-task>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>

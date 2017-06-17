@@ -7,12 +7,18 @@ import { HttpModule } from '@angular/http';
 import { MdButtonModule, MdCheckboxModule, MdIconModule, MdInputModule, MdCardModule, MdListModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { TaskComponent } from './task/task.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { DeletedComponentComponent } from './deleted/DeletedComponent/DeletedComponent.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskComponent
-  ],
+    TaskComponent,
+    TasksComponent,
+    DeletedComponentComponent
+],
   imports: [
     BrowserModule,
     FormsModule,
