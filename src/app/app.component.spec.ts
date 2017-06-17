@@ -6,7 +6,7 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule, MdListModule, MdListItem } from '@angular/material';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, QueryList, Component } from '@angular/core';
-
+import { RouterTestingModule } from '@angular/router/testing/src/testing';
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
@@ -22,7 +22,8 @@ describe('AppComponent', () => {
         MdCardModule,
         FormsModule,
         MdListModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterTestingModule
       ],
       declarations: [
         AppComponent,

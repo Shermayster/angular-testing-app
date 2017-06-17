@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { DeletedComponentComponent } from './DeletedComponent.component';
+import { DeletedComponent } from './deleted.component';
 
-describe('DeletedComponentComponent', () => {
-  let component: DeletedComponentComponent;
-  let fixture: ComponentFixture<DeletedComponentComponent>;
+describe('DeletedComponent', () => {
+  let component: DeletedComponent;
+  let fixture: ComponentFixture<DeletedComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeletedComponentComponent ]
+      declarations: [ DeletedComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeletedComponentComponent);
+    fixture = TestBed.createComponent(DeletedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

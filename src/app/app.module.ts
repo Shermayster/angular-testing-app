@@ -8,7 +8,9 @@ import { MdButtonModule, MdCheckboxModule, MdIconModule, MdInputModule, MdCardMo
 import { AppComponent } from './app.component';
 import { TaskComponent } from './task/task.component';
 import { TasksComponent } from './tasks/tasks.component';
-import { DeletedComponentComponent } from './deleted/DeletedComponent/DeletedComponent.component';
+import { DeletedComponent } from 'app/deleted/deleted.component';
+import { RouterModule } from '@angular/router';
+import { AppRoute } from './app-route.routing';
 
 
 
@@ -17,9 +19,10 @@ import { DeletedComponentComponent } from './deleted/DeletedComponent/DeletedCom
     AppComponent,
     TaskComponent,
     TasksComponent,
-    DeletedComponentComponent
+    DeletedComponent
 ],
   imports: [
+    AppRoute,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
