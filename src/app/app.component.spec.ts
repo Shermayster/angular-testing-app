@@ -1,3 +1,8 @@
+
+import { DeletedComponent } from './deleted/deleted.component';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { inject } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser/';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
 import { NgModel, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, DefaultValueAccessor } from '@angular/forms/';
@@ -6,13 +11,21 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { MdCheckboxModule, MdButtonModule, MdIconModule, MdInputModule, MdCardModule, MdListModule, MdListItem } from '@angular/material';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, QueryList, Component } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing/';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TasksComponent } from './tasks/tasks.component';
+import { AppRoute } from './app-route.routing';
+ class RouterStub {
+    navigate() {
+      return null;
+    }
+  };
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        AppRoute,
         BrowserModule,
         BrowserAnimationsModule,
         MdCheckboxModule,
@@ -27,7 +40,12 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        TaskComponent
+        TaskComponent,
+        TasksComponent,
+        DeletedComponent
+      ],
+      providers: [
+        { provide: Router, useClass: RouterStub }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -51,19 +69,27 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('MsBit todo app');
   }));
-  it('should render input control', async(() => {
+  fit('should navigate to task component', async(inject([Router], (_router: Router) => {
+    const router = _router;
+    const spy = spyOn(router, 'navigate');
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    const taskInput: HTMLElement = compiled.querySelector('#taskInput');
-    expect(taskInput).not.toBeNull();
-  }));
-  it('should render add button', async(() => {
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
-    expect(addTaskBtn).not.toBeNull();
-    expect(addTaskBtn.innerText).toContain('Add Task');
-  }));
+    fixture.whenStable().then(() => {
+      expect(spy).toHaveBeenCalled();
+    });
+  })));
+  // fit('should render input control', async(() => {
+  //   fixture.detectChanges();
+  //   const compiled = fixture.debugElement.nativeElement;
+  //   const taskInput: HTMLElement = compiled.querySelector('#taskInput');
+  //   expect(taskInput).not.toBeNull();
+  // }));
+  // it('should render add button', async(() => {
+  //   fixture.detectChanges();
+  //   const compiled = fixture.debugElement.nativeElement;
+  //   const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
+  //   expect(addTaskBtn).not.toBeNull();
+  //   expect(addTaskBtn.innerText).toContain('Add Task');
+  // }));
 
   // xit('click on add button will add new task', async(() => {
   //   fixture.detectChanges();
