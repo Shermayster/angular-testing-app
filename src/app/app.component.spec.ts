@@ -1,6 +1,6 @@
 
 import { DeletedComponent } from './deleted/deleted.component';
-import { Location } from '@angular/common';
+import {APP_BASE_HREF, Location} from '@angular/common';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser/';
@@ -37,6 +37,9 @@ describe('AppComponent', () => {
         MdListModule,
         ReactiveFormsModule,
         RouterTestingModule
+          .withRoutes([
+            {path: '', component: TasksComponent}
+          ])
       ],
       declarations: [
         AppComponent,
@@ -45,7 +48,7 @@ describe('AppComponent', () => {
         DeletedComponent
       ],
       providers: [
-        { provide: Router, useClass: RouterStub }
+        { provide: APP_BASE_HREF, useValue: '/' }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -69,123 +72,9 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('MsBit todo app');
   }));
-  fit('should navigate to task component', async(inject([Router], (_router: Router) => {
-    const router = _router;
-    const spy = spyOn(router, 'navigate');
+  it('should have router component', () => {
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(spy).toHaveBeenCalled();
-    });
-  })));
-  // fit('should render input control', async(() => {
-  //   fixture.detectChanges();
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   const taskInput: HTMLElement = compiled.querySelector('#taskInput');
-  //   expect(taskInput).not.toBeNull();
-  // }));
-  // it('should render add button', async(() => {
-  //   fixture.detectChanges();
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
-  //   expect(addTaskBtn).not.toBeNull();
-  //   expect(addTaskBtn.innerText).toContain('Add Task');
-  // }));
-
-  // xit('click on add button will add new task', async(() => {
-  //   fixture.detectChanges();
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   let tasks: HTMLElement[] = compiled.querySelectorAll('.tasks');
-  //   const taskInput: HTMLInputElement = compiled.querySelector('#taskInput');
-  //   expect(tasks.length).toBe(0);
-  //   const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
-  //   app.taskInput = 'test';
-  //   fixture.detectChanges();
-  //   addTaskBtn.click();
-  //   fixture.detectChanges();
-  //   fixture.whenStable().then(() => {
-  //     expect(app.tasks.length).toBe(1);
-  //     tasks = compiled.querySelectorAll('.taskContent');
-  //     expect(tasks.length).toBe(1);
-  //     expect(tasks[0].innerText).toContain('test');
-  //   });
-  // }));
-  // xit('should add task only with content', async(() => {
-  //   fixture.detectChanges();
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
-  //   let tasks: HTMLElement[] = compiled.querySelectorAll('.tasks');
-  //   addTaskBtn.click();
-  //   fixture.detectChanges();
-  //   fixture.whenStable().then(() => {
-  //     expect(app.tasks.length).toBe(0);
-  //   });
-  // }));
-  // xit('should hide deleted tasks', async(() => {
-  //   fixture.detectChanges();
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   let tasks: HTMLElement[] = compiled.querySelectorAll('.tasks');
-  //   const taskInput: HTMLInputElement = compiled.querySelector('#taskInput');
-  //   expect(tasks.length).toBe(0);
-  //   const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
-  //   app.taskInput = 'test1';
-  //   fixture.detectChanges();
-  //   addTaskBtn.click();
-  //   fixture.detectChanges();
-  //   fixture.whenStable().then(() => {
-  //     expect(app.tasks.length).toBe(1);
-  //     tasks = compiled.querySelectorAll('.tasks');
-  //     expect(tasks.length).toBe(1);
-  //     const deleteBtn: HTMLButtonElement = compiled.querySelector('.deleteTask');
-  //     deleteBtn.click();
-  //     fixture.detectChanges();
-  //     fixture.whenStable().then(() => {
-  //       expect(tasks[0].offsetHeight).toBe(0);
-  //       expect(tasks[0].offsetWidth).toBe(0);
-  //     });
-  //   });
-  // }));
-  // xit('should clear input after task was added', async(() => {
-  //   fixture.detectChanges();
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   let tasks: HTMLElement[] = compiled.querySelectorAll('.tasks');
-  //   let taskInput: HTMLInputElement = compiled.querySelector('#taskInput');
-  //   expect(tasks.length).toBe(0);
-  //   const addTaskBtn: HTMLElement = compiled.querySelector('#addTaskBtn');
-  //   app.taskInput = 'test';
-  //   fixture.detectChanges();
-  //   addTaskBtn.click();
-  //   fixture.detectChanges();
-  //   fixture.whenStable().then(() => {
-  //     taskInput = compiled.querySelector('#taskInput');
-  //     expect(taskInput.value).toBe('');
-  //   });
-  // }));
-  // xit('should add task when user push enter button', async(() => {
-  //   fixture.detectChanges();
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   const tasks: HTMLElement[] = compiled.querySelectorAll('.tasks');
-  //   const taskInput: HTMLInputElement = compiled.querySelector('#taskInput');
-  //   expect(tasks.length).toBe(0);
-  //   app.taskInput = 'test';
-  //   fixture.detectChanges();
-  //   const spy = spyOn(app, 'addTask');
-  //   const eventKey = new KeyboardEvent('keypress', { 'key': 'Enter' });
-  //   taskInput.focus();
-  //   dispatchEvent(eventKey);
-  //   debugger;
-  //   fixture.detectChanges();
-  //   expect(spy).toHaveBeenCalled();
-  //   fixture.whenStable().then(() => {
-  //     expect(spy).toHaveBeenCalledWith('test');
-  //   });
-  // }));
-  // xit('should contain deleted task page', () => {
-  //   fixture.detectChanges();
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   const deletedPageBtn = compiled.querySelector('#deletedTasksBtn');
-  //   expect(deletedPageBtn).not.toBeNull();
-  // });
-  // xit('should recieve tasks from server', () => {
-
-  // });
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('router-outlet')).not.toBeNull();
+  });
 });
